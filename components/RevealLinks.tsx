@@ -30,6 +30,11 @@ const RevealLinksContent = ({ children }: RevealLinksContentProps) => {
               y: "100%",
             },
           }}
+          transition={{
+            delay: 0.025 * i,
+            duration: 0.25,
+            ease: "easeInOut",
+          }}
           key={i}
           className="inline-block text-8xl font-poppins"
         >
@@ -47,6 +52,11 @@ const RevealLinksContent = ({ children }: RevealLinksContentProps) => {
                 hovered: {
                   y: 0,
                 },
+              }}
+              transition={{
+                delay: 0.025 * i,
+                duration: 0.25,
+                ease: "easeInOut",
               }}
               key={i}
               className="inline-block text-[#aaff80] font-poppins"
