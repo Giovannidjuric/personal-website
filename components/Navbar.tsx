@@ -22,14 +22,14 @@ const Navbar = () => {
 
   return (
     <div onMouseLeave={() => handleSetSelected(null)}>
-      <div className={`flex items-center justify-between px-4`}>
+      <div className={`flex items-center justify-between px-4 `}>
         <Link
           href="/"
           className="relative flex items-center justify-between py-4"
         >
           <div className={`font-poppins text-2xl`}>Giovanni</div>
         </Link>
-        <div className="relative items-center hidden gap-4 p-6 border-2 dark:border-primary border-[#aaff80] rounded-full font-poppins border-primary md:flex">
+        <div className="relative items-center hidden gap-4 p-6 border-2 dark:border-primary border-[#aaff80] rounded-full font-poppins  md:flex">
           {NAVITEMS.map((item) => (
             <NavbarItem
               key={item.id}
