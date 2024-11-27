@@ -2,8 +2,6 @@
 
 import React from "react";
 import { motion } from "motion/react";
-import { initialize } from "next/dist/server/lib/render-server";
-import { Span } from "next/dist/trace";
 
 type RevealLinksContentProps = {
   children: string;
@@ -16,7 +14,7 @@ const RevealLinks = () => {
 const RevealLinksContent = ({ children }: RevealLinksContentProps) => {
   return (
     <motion.div
-      className="relative block overflow-hidden uppercase text-primary"
+      className="relative block mx-auto overflow-hidden uppercase text-primary sm:text-4xl md:text-6xl lg:text-8xl"
       initial="initial"
       whileHover="hovered"
     >
@@ -36,12 +34,12 @@ const RevealLinksContent = ({ children }: RevealLinksContentProps) => {
             ease: "easeInOut",
           }}
           key={i}
-          className="inline-block text-8xl font-poppins"
+          className="inline-block font-poppins"
         >
           {l}
         </motion.span>
       ))}
-      <div className="absolute bottom-0 text-8xl">
+      <div className="absolute bottom-0">
         {children.split("").map((l, i) => {
           return (
             <motion.span
@@ -59,7 +57,7 @@ const RevealLinksContent = ({ children }: RevealLinksContentProps) => {
                 ease: "easeInOut",
               }}
               key={i}
-              className="inline-block text-[#aaff80] font-poppins"
+              className="inline-block dark:text-slate-500 text-[#aaff80] font-poppins"
             >
               {l}
             </motion.span>

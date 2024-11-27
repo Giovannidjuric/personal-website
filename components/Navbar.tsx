@@ -9,22 +9,48 @@ import { AnimatePresence, motion as m } from "motion/react";
 
 const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [currentItem, setCurrentItem] = useState<null | number>(null);
+  const [dir, setDir] = useState<null | "l" | "r">(null);
+
+  const handleSetSelected = (currentItem: number | null) => {
+    if (typeof currentItem == "number" && typeof currentItem == "number") {
+      setDir(currentItem > currentItem ? "l" : "r");
+    }
+    setCurrentItem(currentItem);
+    console.log(currentItem);
+  };
 
   return (
-    <div className="flex flex-col">
-      <div className={`flex items-center justify-between px-4 mt-10`}>
+    <div onMouseLeave={() => handleSetSelected(null)}>
+      <div className={`flex items-center justify-between px-4`}>
         <Link
           href="/"
           className="relative flex items-center justify-between py-4"
         >
           <div className={`font-poppins text-2xl`}>Giovanni</div>
         </Link>
-        <div className="relative items-center hidden gap-4 p-6 border-2 rounded-full font-poppins border-primary md:flex">
-          <NavbarItem itemName="About me" />
-          <NavbarItem itemName="My favourite music"></NavbarItem>
-          <NavbarItem itemName="Goals"></NavbarItem>
-          <NavbarItem itemName="Quotes"></NavbarItem>
-          <NavbarItem itemName="Inspiration"></NavbarItem>
+        <div className="relative items-center hidden gap-4 p-6 border-2 dark:border-primary border-[#aaff80] rounded-full font-poppins border-primary md:flex">
+          {NAVITEMS.map((item) => (
+            <NavbarItem
+              key={item.id}
+              itemName={item.name}
+              itemId={item.id}
+              handleSetCurrentItem={handleSetSelected}
+            />
+          ))}
+          <AnimatePresence>
+            {currentItem && (
+              <NavItemContentContainer selected={currentItem} dir={dir}>
+                {NAVITEMS.map((item) => {
+                  return (
+                    <m.div key={item.id}>
+                      {item.id == currentItem ? item.component : ""}
+                    </m.div>
+                  );
+                })}
+              </NavItemContentContainer>
+            )}
+          </AnimatePresence>
         </div>
         <div className="flex items-center gap-4">
           <ModeToggle />
@@ -71,5 +97,65 @@ const Navbar = () => {
     </div>
   );
 };
+
+const NavItemContentContainer = ({
+  selected,
+  dir,
+  children,
+}: {
+  selected: number | null;
+  dir: "l" | "r" | null;
+  children: React.ReactNode;
+}) => {
+  return (
+    <m.div
+      initial={{
+        y: 8,
+        opacity: 0,
+      }}
+      animate={{
+        y: 0,
+        opacity: 1,
+      }}
+      exit={{
+        y: 8,
+        opacity: 0,
+      }}
+      className="h-24 w-full top-[calc(100%+24px)] border-2 dark:border-primary rounded-lg left-0 
+      border-[#aaff80]
+      dark:bg-gradient-to-b dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-800 absolute p-4"
+    >
+      <div className="absolute -top-24 left-0 h-24 w-full"></div>
+      {children}
+    </m.div>
+  );
+};
+
+const NavItemContent = () => {
+  return <div>Hello, content</div>;
+};
+
+const NAVITEMS = [
+  {
+    name: "About me",
+    component: <NavItemContent />,
+  },
+  {
+    name: "Favourite music",
+    component: <NavItemContent />,
+  },
+  {
+    name: "Goals",
+    component: <NavItemContent />,
+  },
+  {
+    name: "Quotes",
+    component: <NavItemContent />,
+  },
+  {
+    name: "Inspiration",
+    component: <NavItemContent />,
+  },
+].map((item, idx) => ({ ...item, id: idx + 1 }));
 
 export default Navbar;

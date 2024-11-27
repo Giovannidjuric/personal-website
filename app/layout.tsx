@@ -3,6 +3,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import Navbar from "@/components/Navbar";
+import Slider from "@/components/Slider";
+import SliderMap2 from "@/components/SliderMap2";
 
 export const metadata: Metadata = {
   title: "Giovanni's Portfolio",
@@ -25,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="">
-        <div className="container w-screen h-screen mx-auto">
+        <div className="container w-screen h-screen mx-auto p-10">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -36,6 +38,8 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </div>
+        <Slider />
+        <SliderMap2 />
       </body>
     </html>
   );
