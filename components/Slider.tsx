@@ -6,6 +6,7 @@ import { easeInOut, motion as m } from "motion/react";
 import { Poppins, Quicksand } from "next/font/google";
 import { cedarvilleCursive } from "@/app/page";
 import { Divide } from "lucide-react";
+import QUOTES from "@/lib/quotes";
 
 export const poppins = Poppins({
   weight: ["600"],
@@ -14,54 +15,18 @@ export const poppins = Poppins({
   display: "swap",
 });
 
-const QUOTES: { id: number; writer: string; quote: string }[] = [
-  {
-    writer: "Carl Gustav Jung",
-    quote:
-      "The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.",
-  },
-  {
-    writer: "Socrates",
-    quote: "The only true wisdom is in knowing you know nothing.",
-  },
-  {
-    writer: "Confucius",
-    quote: "It does not matter how slowly you go as long as you do not stop.",
-  },
-  {
-    writer: "Buddha",
-    quote: "The mind is everything. What you think you become.",
-  },
-  {
-    writer: "Mahatma Gandhi",
-    quote: "Be the change that you wish to see in the world.",
-  },
-  {
-    writer: "Nelson Mandela",
-    quote: "It always seems impossible until it’s done.",
-  },
-  {
-    writer: "Albert Einstein",
-    quote:
-      "Life is like riding a bicycle. To keep your balance, you must keep moving.",
-  },
-  {
-    writer: "Martin Luther King Jr.",
-    quote: "The time is always right to do what is right.",
-  },
-  {
-    writer: "Mother Teresa",
-    quote:
-      "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
-  },
-  {
-    writer: "Lao Tzu",
-    quote: "The journey of a thousand miles begins with one step.",
-  },
-].map((item, idx) => ({ ...item, id: idx + 1 }));
-
 const Slider = () => {
   const [quoteIndex, setQouteIndex] = useState<number>(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setQouteIndex((prev) => (prev === QUOTES.length - 1 ? 0 : prev + 1));
+    }, 3000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   const slideRef = useRef<HTMLDivElement>(null);
 
@@ -88,14 +53,14 @@ const Slider = () => {
   return (
     <div className="flex w-[90%] h-[800px] mx-auto pb-4 items-center">
       <div className="w-full h-[70%] flex">
-        <div className="w-[40%] flex items-center justify-center">
+        <div className="hidden w-[40%] md:flex items-center justify-center">
           <m.div
             whileHover={{ scaleX: 1.05 }}
             whileTap={{ scaleX: 0.9 }}
-            className="w-14 h-14 rounded-full border border-primary flex items-center justify-center cursor-pointer"
+            className="md:w-14 md:h-14 sm:w-8 sm:h-8 rounded-full border border-primary flex items-center justify-center cursor-pointer"
             onClick={() => arrowClick("left")}
           >
-            <FaArrowLeft className="w-8 h-8" />
+            <FaArrowLeft className="md:w-8 md:h-8 w-6 h-6" />
           </m.div>
         </div>
 
@@ -150,12 +115,12 @@ const Slider = () => {
 
         <div className="w-[40%] flex items-center justify-center">
           <m.div
-            className="w-14 h-14 rounded-full border-primary border flex items-center justify-center cursor-pointer"
+            className="hidden md:w-14 md:h-14 sm:w-8 sm:h-8 rounded-full border-primary border md:flex items-center justify-center cursor-pointer"
             whileHover={{ scaleX: 1.05 }}
             whileTap={{ scaleX: 0.9 }}
           >
             <FaArrowLeft
-              className="w-8 h-8 rotate-180"
+              className="md:w-8 md:h-8 w-6 h-6 rotate-180"
               onClick={() => arrowClick("right")}
             />
           </m.div>

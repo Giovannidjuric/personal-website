@@ -5,6 +5,7 @@ import { ThemeProvider } from "../components/theme-provider";
 import Navbar from "@/components/Navbar";
 import Slider from "@/components/Slider";
 import SliderMap2 from "@/components/SliderMap2";
+import MusicGrid from "@/components/MusicGrid";
 
 export const metadata: Metadata = {
   title: "Giovanni's Portfolio",
@@ -39,6 +40,7 @@ export default function RootLayout({
           </ThemeProvider>
         </div>
         <Slider />
+        <MusicGrid />
       </body>
     </html>
   );

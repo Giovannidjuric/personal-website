@@ -1,3 +1,5 @@
+"use server";
+
 const baseUrl = "https://api.spotify.com/";
 const urlParams = "v1/me/top/tracks?time_range=long_term&limit=5";
 const spotifyToken =
